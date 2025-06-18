@@ -1,12 +1,31 @@
-*从LoginPage进入WaiterPage的验证密码为：migongfan
+# 餐厅智能点餐系统 - Restaurant Ordering System
 
-*可以在backend/.env查看数据库信息
+> 基于React+Node.js+PostgreSQL的全栈系统 | 2023年项目
 
-*我们在文件根目录下放置了数据库的备份，运行项目前可以先在pgAdmin4中对项目进行恢复。
+## 系统功能
 
-*启动项目：
-> cd backend
-> node app.js
->另外打开一个终端：
-> cd frontend/restaurant-ordering-system
-> npm start
+| 用户角色 | 核心功能 |
+|---------|----------|
+| **顾客** | 餐桌状态查看、菜单浏览、订单提交、账单查询 |
+| **服务员** | 餐桌状态管理、菜品CRUD、订单管理、销售统计 |
+
+##  技术架构
+```mermaid
+graph LR
+A[React前端] --> B[Node.js/Express]
+B --> C[PostgreSQL]
+C --> D[Linux/Nginx]
+```
+##核心实现
+###数据库设计
+
+```sql
+-- 订单表示例
+CREATE TABLE "Order" (
+  orderid SERIAL PRIMARY KEY,
+  tableid INTEGER REFERENCES "Table"(tableid),
+  totalamount NUMERIC(10,2),
+  status VARCHAR(20) CHECK(status IN ('pending','completed'))
+);
+```
+### 关键API接口
